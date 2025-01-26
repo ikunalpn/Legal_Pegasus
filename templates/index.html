@@ -1,19 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="dark">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legal Pegasus Summarizer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .dark {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+    </style>
 </head>
-<body>
-    <h1>Legal Pegasus Summarizer</h1>
-    <form method="POST" action="{{ url_for('index') }}">
-        <label for="text">Enter text to summarize:</label>
-        <textarea id="text" name="text" rows="10" cols="50"></textarea>
-        <br>
-        <button type="submit">Summarize</button>
-    </form>
-    {% if summary %}
-        <h2>Summary:</h2>
-        <p>{{ summary }}</p>
-    {% endif %}
+<body class="dark">
+    <div class="flex items-center justify-center h-screen">
+        <div class="w-full max-w-md mr-8">
+            <h1 class="text-4xl font-bold mb-8">Legal Pegasus Summarizer</h1>
+            <form method="POST" action="{{ url_for('index') }}" enctype="multipart/form-data" class="bg-gray-800 rounded-md p-6">
+                <div class="mb-4">
+                    <label for="file" class="block font-medium mb-2">Upload a PDF file:</label>
+                    <input type="file" id="file" name="file" class="w-full bg-gray-700 border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-500">Summarize</button>
+            </form>
+        </div>
+        <div class="w-full max-w-md">
+            {% if summary %}
+            <h2 class="text-2xl font-bold mb-4">Summary:</h2>
+            <div class="bg-gray-800 rounded-md p-6">
+                <p>{{ summary }}</p>
+            </div>
+            {% endif %}
+            {% if error %}
+            <p class="mt-4 text-red-500">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
