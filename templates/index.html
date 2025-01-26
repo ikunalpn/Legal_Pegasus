@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Legal Pegasus Summarizer</title>
+</head>
+<body>
+    <h1>Legal Pegasus Summarizer</h1>
+    <form method="POST" action="{{ url_for('index') }}">
+        <label for="text">Enter text to summarize:</label>
+        <textarea id="text" name="text" rows="10" cols="50"></textarea>
+        <br>
+        <button type="submit">Summarize</button>
+    </form>
+    {% if summary %}
+        <h2>Summary:</h2>
+        <p>{{ summary }}</p>
+    {% endif %}
+</body>
+</html>
