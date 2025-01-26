@@ -1,12 +1,16 @@
+import os
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import pdfplumber
+
+transformers_cache_dir = os.environ.get("TRANSFORMERS_CACHE", "/var/task/cache")
+
+tokenizer = AutoTokenizer.from_pretrained("akhilm97/pegasus_indian_legal", cache_dir=transformers_cache_dir)
+model = AutoModelForSeq2SeqLM.from_pretrained("akhilm97/pegasus_indian_legal", cache_dir=transformers_cache_dir)
 
 def extract_text_from_pdf(pdf_file):
     with pdfplumber.open(pdf_file) as pdf:
         text = "\n".join([page.extract_text() for page in pdf.pages])
     return text
-tokenizer = AutoTokenizer.from_pretrained("akhilm97/pegasus_indian_legal")
-model = AutoModelForSeq2SeqLM.from_pretrained("akhilm97/pegasus_indian_legal")
 
 def summarize_text(text):
     input_tokenized = tokenizer.encode(text, return_tensors='pt', max_length=1024, truncation=True)
