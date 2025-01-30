@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +11,24 @@
             background-color: #1a202c;
             color: #e2e8f0;
         }
+        
+        .summary-section {
+            max-height: 500px; /* Set maximum height */
+            overflow-y: auto;  /* Enable vertical scrolling */
+        }
     </style>
+    <script>
+        function copyToClipboard() {
+            var summaryText = document.getElementById("summary-text").innerText;
+            navigator.clipboard.writeText(summaryText).then(function() {
+                alert("Summary copied to clipboard!");
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
 </head>
+
 <body class="dark">
     <div class="flex items-center justify-center h-screen">
         <div class="w-full max-w-md mr-8">
@@ -26,9 +43,10 @@
         </div>
         <div class="w-full max-w-md">
             {% if summary %}
-            <h2 class="text-2xl font-bold mb-4">Summary:</h2>
-            <div class="bg-gray-800 rounded-md p-6">
-                <p>{{ summary }}</p>
+            <h2 class="text-2xl font-bold mb-4 inline">Summary:</h2>
+            <button onclick="copyToClipboard()" class="ml-2 bg-blue-500 hover:bg-blue-600 text-white font-medium py-1 px-3 mb-10 rounded-md">Copy</button>
+            <div class="bg-gray-800 rounded-md p-6 summary-section">
+                <p id="summary-text">{{ summary }}</p>
             </div>
             {% endif %}
             {% if error %}
@@ -37,4 +55,5 @@
         </div>
     </div>
 </body>
+
 </html>
