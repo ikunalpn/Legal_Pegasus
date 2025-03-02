@@ -15,7 +15,7 @@ def summarize_text(text):
                                 no_repeat_ngram_size=3,
                                 length_penalty=2.0,
                                 min_length=150,
-                                max_length=500,
+                                max_length=300,
                                 early_stopping=True)
     summary = [tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=False) for g in summary_ids][0]
     return summary
