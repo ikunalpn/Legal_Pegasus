@@ -19,3 +19,4 @@ def summarize_text(text):
                                 early_stopping=True)
     summary = [tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=False) for g in summary_ids][0]
     return summary
+
